@@ -1,3 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MindSpace</string>
+    
+    <string name="nav_home">心情</string>
+    <string name="nav_notes">笔记</string>
+    <string name="nav_data">数据</string>
+    
+    <string name="title_mood">心情记录</string>
+    <string name="title_notes">我的笔记</string>
+    <string name="title_data">数据统计</string>
+    
+    <string name="hint_mood_content">记录此刻的心情...</string>
+    <string name="hint_note_title">标题</string>
+    <string name="hint_note_content">内容</string>
+    
+    <string name="btn_save">保存</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_delete">删除</string>
+    <string name="btn_edit">编辑</string>
+    
+    <string name="mood_happy">开心</string>
+    <string name="mood_excited">兴奋</string>
+    <string name="mood_normal">平静</string>
+    <string name="mood_sad">难过</string>
+    <string name="mood_angry">生气</string>
+    
+    <string name="category_work">工作</string>
+    <string name="category_study">学习</string>
+    <string name="category_life">生活</string>
+    <string name="category_idea">创意</string>
+    
+    <string-array name="note_categories">
+        <item>工作</item>
+        <item>学习</item>
+        <item>生活</item>
+        <item>创意</item>
+    </string-array>
+    
+    <string name="dialog_add_note_title">添加笔记</string>
+    <string name="dialog_edit_note_title">编辑笔记</string>
+    <string name="dialog_delete_confirm_title">删除确认</string>
+    <string name="dialog_delete_confirm_message">确定要删除吗？</string>
+    
+    <string name="toast_mood_saved">心情记录已保存</string>
+    <string name="toast_note_saved">笔记已保存</string>
+    <string name="toast_deleted">已删除</string>
+    <string name="toast_error_empty_title">标题不能为空</string>
+    <string name="toast_error_select_mood">请先选择心情类型</string>
+    <string name="toast_error_empty_content">请输入心情内容</string>
+    
+    <string name="label_recent_records">最近记录</string>
+    <string name="label_average_score">平均心情指数</string>
+    <string name="label_mood_trend">心情趋势</string>
+    <string name="label_mood_distribution">心情分布</string>
+    
+    <string name="error_generic">出错了</string>
+    <string name="empty_moods">暂无心情记录</string>
+    <string name="empty_notes">暂无笔记</string>
 </resources>

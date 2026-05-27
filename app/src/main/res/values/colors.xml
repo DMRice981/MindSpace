@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#7C4DFF</color>
+    <color name="primary_dark">#651FFF</color>
+    <color name="primary_light">#B388FF</color>
+    <color name="accent">#FF6D9A</color>
+    <color name="accent_dark">#FF4081</color>
+    <color name="background">#FAFAFA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="success">#00C853</color>
+    <color name="warning">#FFAB00</color>
+    <color name="info">#00B0FF</color>
+    <color name="error">#FF5252</color>
+    <color name="divider">#E0E0E0</color>
+    
+    <color name="mood_happy">#4CAF50</color>
+    <color name="mood_happy_bg">#E8F5E9</color>
+    <color name="mood_excited">#FF9800</color>
+    <color name="mood_excited_bg">#FFF3E0</color>
+    <color name="mood_normal">#2196F3</color>
+    <color name="mood_normal_bg">#E3F2FD</color>
+    <color name="mood_sad">#9C27B0</color>
+    <color name="mood_sad_bg">#F3E5F5</color>
+    <color name="mood_angry">#F44336</color>
+    <color name="mood_angry_bg">#FFEBEE</color>
+    
+    <color name="note_work">#FF6D9A</color>
+    <color name="note_study">#7C4DFF</color>
+    <color name="note_life">#00C853</color>
+    <color name="note_idea">#FFAB00</color>
 </resources>

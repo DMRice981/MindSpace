@@ -3,16 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
+        android:allowBackup="false"
+        android:fullBackupOnly="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MindSpace">
         <activity
-            android:name=".MainActivity"
+            android:name="com.mindspace.app.ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +19,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.mindspace.app.ui.activities.NoteActivity"
+            android:exported="false"
+            android:label="@string/title_notes" />
+        <activity
+            android:name="com.mindspace.app.ui.activities.DataActivity"
+            android:exported="false"
+            android:label="@string/title_data" />
+        <service
+            android:name="com.mindspace.app.service.BackupService"
+            android:exported="false" />
+        <service
+            android:name="com.mindspace.app.service.NotificationService"
+            android:exported="false" />
     </application>
 
 </manifest>
