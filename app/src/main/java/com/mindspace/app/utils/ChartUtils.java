@@ -20,8 +20,8 @@ import java.util.Map;
 
 public class ChartUtils {
 
-    public static final String COLOR_PRIMARY = "#6C63FF";
-    public static final String COLOR_ACCENT = "#FF6584";
+    public static final String COLOR_PRIMARY = "#7C4DFF";
+    public static final String COLOR_ACCENT = "#FF6D9A";
     public static final String COLOR_SUCCESS = "#4CAF50";
     public static final String COLOR_WARNING = "#FF9800";
     public static final String COLOR_INFO = "#2196F3";
@@ -32,21 +32,26 @@ public class ChartUtils {
         chart.setScaleEnabled(true);
         chart.setPinchZoom(true);
         chart.setDrawGridBackground(false);
+        chart.setBackgroundColor(Color.TRANSPARENT);
+        chart.getDescription().setEnabled(false);
         
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f);
+        xAxis.setTextColor(Color.parseColor("#757575"));
         
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setAxisMinimum(0f);
         leftAxis.setAxisMaximum(5f);
         leftAxis.setDrawGridLines(true);
+        leftAxis.setGridColor(Color.parseColor("#E0E0E0"));
+        leftAxis.setTextColor(Color.parseColor("#757575"));
         
         chart.getAxisRight().setEnabled(false);
         chart.getLegend().setEnabled(true);
-        chart.getDescription().setEnabled(false);
-        chart.animateX(1000);
+        chart.getLegend().setTextColor(Color.parseColor("#757575"));
+        chart.animateX(1500);
     }
 
     public static void setupPieChart(PieChart chart) {
@@ -66,17 +71,26 @@ public class ChartUtils {
         chart.setHighlightPerTapEnabled(true);
         chart.animateY(1400);
         chart.getLegend().setEnabled(true);
+        chart.getLegend().setTextColor(Color.parseColor("#757575"));
     }
 
     public static void updateMoodLineChart(LineChart chart, List<Entry> entries, String label) {
+        if (entries.isEmpty()) {
+            chart.clear();
+            return;
+        }
+        
         LineDataSet dataSet = new LineDataSet(entries, label);
         dataSet.setColor(Color.parseColor(COLOR_PRIMARY));
         dataSet.setCircleColor(Color.parseColor(COLOR_ACCENT));
-        dataSet.setLineWidth(2f);
-        dataSet.setCircleRadius(4f);
+        dataSet.setLineWidth(3f);
+        dataSet.setCircleRadius(5f);
         dataSet.setDrawCircleHole(false);
         dataSet.setValueTextSize(10f);
+        dataSet.setValueTextColor(Color.parseColor(COLOR_PRIMARY));
         dataSet.setDrawFilled(true);
+        dataSet.setFillColor(Color.parseColor(COLOR_PRIMARY));
+        dataSet.setFillAlpha(50);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         
         LineData lineData = new LineData(dataSet);
@@ -171,9 +185,9 @@ public class ChartUtils {
     public static List<Integer> getMoodColors() {
         List<Integer> colors = new ArrayList<>();
         colors.add(Color.parseColor(COLOR_SUCCESS));
-        colors.add(Color.parseColor(COLOR_PRIMARY));
-        colors.add(Color.parseColor(COLOR_INFO));
         colors.add(Color.parseColor(COLOR_WARNING));
+        colors.add(Color.parseColor(COLOR_INFO));
+        colors.add(Color.parseColor("#9C27B0"));
         colors.add(Color.parseColor(COLOR_ACCENT));
         return colors;
     }

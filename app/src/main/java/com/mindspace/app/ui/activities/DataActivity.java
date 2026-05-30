@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
 import com.example.mindspace.R;
 import com.mindspace.app.data.model.MoodRecord;
 import com.mindspace.app.utils.ChartUtils;
@@ -17,8 +18,6 @@ import com.mindspace.app.viewmodel.DataViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-
 
 public class DataActivity extends AppCompatActivity {
     
@@ -84,10 +83,10 @@ public class DataActivity extends AppCompatActivity {
             return;
         }
         
-        List<com.github.mikephil.charting.data.Entry> entries = new ArrayList<>();
+        List<Entry> entries = new ArrayList<>();
         for (int i = 0; i < recentMoods.size(); i++) {
             MoodRecord mood = recentMoods.get(i);
-            entries.add(new com.github.mikephil.charting.data.Entry(i, mood.getMoodScore()));
+            entries.add(new Entry(i, mood.getMoodScore()));
         }
         
         ChartUtils.updateMoodLineChart(lineChart, entries, "心情趋势");

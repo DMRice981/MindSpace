@@ -126,4 +126,9 @@ public class DateUtils {
         return now.get(Calendar.YEAR) == target.get(Calendar.YEAR) 
             && now.get(Calendar.MONTH) == target.get(Calendar.MONTH);
     }
+
+    public static String getTodayString() {
+        SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE_FORMAT, Locale.getDefault());
+        return sdf.format(new Date());
+    }
 }

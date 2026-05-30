@@ -1,6 +1,5 @@
 package com.mindspace.app.ui.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.mindspace.app.utils.DateUtils;
 import com.mindspace.app.viewmodel.DataViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,8 +31,14 @@ public class DataFragment extends Fragment {
     private LineChart lineChart;
     private PieChart pieChart;
     private TextView tvAverageScore;
+    private TextView tvMoodDesc;
+    private TextView tvHappyCount;
+    private TextView tvExcitedCount;
+    private TextView tvCalmCount;
+    private TextView tvTotalRecords;
     
     private List<MoodRecord> recentMoods = new ArrayList<>();
+    private int totalRecords = 0;
 
     @Nullable
     @Override
@@ -56,6 +60,11 @@ public class DataFragment extends Fragment {
         lineChart = view.findViewById(R.id.line_chart);
         pieChart = view.findViewById(R.id.pie_chart);
         tvAverageScore = view.findViewById(R.id.tv_average_score);
+        tvMoodDesc = view.findViewById(R.id.tv_mood_desc);
+        tvHappyCount = view.findViewById(R.id.tv_happy_count);
+        tvExcitedCount = view.findViewById(R.id.tv_excited_count);
+        tvCalmCount = view.findViewById(R.id.tv_calm_count);
+        tvTotalRecords = view.findViewById(R.id.tv_total_records);
     }
 
     private void setupCharts() {
@@ -68,20 +77,25 @@ public class DataFragment extends Fragment {
         
         dataViewModel.getRecentMoods(30).observe(getViewLifecycleOwner(), moods -> {
             recentMoods = moods;
+            totalRecords = moods.size();
+            tvTotalRecords.setText(String.valueOf(totalRecords));
             updateMoodLineChart();
         });
         
         dataViewModel.getMoodStatistics().observe(getViewLifecycleOwner(), stats -> {
             if (stats != null && !stats.isEmpty()) {
                 updateMoodPieChart(stats);
+                updateMoodCountCards(stats);
             }
         });
         
         dataViewModel.getAverageMoodScore().observe(getViewLifecycleOwner(), average -> {
             if (average != null) {
-                tvAverageScore.setText(String.format("平均心情指数: %.1f", average));
+                tvAverageScore.setText(String.format("%.1f", average));
+                updateMoodDescription(average);
             } else {
-                tvAverageScore.setText("平均心情指数: --");
+                tvAverageScore.setText("--");
+                tvMoodDesc.setText("开始记录心情吧！");
             }
         });
         
@@ -108,5 +122,31 @@ public class DataFragment extends Fragment {
     private void updateMoodPieChart(Map<String, Integer> stats) {
         List<Integer> colors = ChartUtils.getMoodColors();
         ChartUtils.updateMoodPieChart(pieChart, stats, colors);
+    }
+
+    private void updateMoodCountCards(Map<String, Integer> stats) {
+        int happyCount = stats.getOrDefault(MoodRecord.MoodType.HAPPY, 0);
+        int excitedCount = stats.getOrDefault(MoodRecord.MoodType.EXCITED, 0);
+        int calmCount = stats.getOrDefault(MoodRecord.MoodType.NORMAL, 0);
+        
+        tvHappyCount.setText(String.valueOf(happyCount));
+        tvExcitedCount.setText(String.valueOf(excitedCount));
+        tvCalmCount.setText(String.valueOf(calmCount));
+    }
+
+    private void updateMoodDescription(float average) {
+        String description;
+        if (average >= 9.0) {
+            description = "太棒了！你最近心情非常好！🎉";
+        } else if (average >= 7.0) {
+            description = "很不错！继续保持好心情！✨";
+        } else if (average >= 5.0) {
+            description = "还不错，给自己一些鼓励！💪";
+        } else if (average >= 3.0) {
+            description = "有些低落，试着做些让自己开心的事吧！🌸";
+        } else {
+            description = "最近不太顺？记得要照顾好自己！❤️";
+        }
+        tvMoodDesc.setText(description);
     }
 }

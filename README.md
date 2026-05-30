@@ -1,170 +1,195 @@
-# MindSpace - 心情记录与灵感笔记 App
+# MindSpace 2.0 - 现代化重构
 
-一款专注于心情记录与灵感管理的 Android 移动应用，帮助用户追踪情绪变化、管理灵感想法，并通过图表直观展示数据趋势。
+## 🚀 新特性
 
-## 📱 功能特性
+### 1. 现代化架构升级
+- **Android Gradle Plugin 8.7.2** - 最新稳定版
+- **Target SDK 35** - 适配最新Android系统
+- **Minimum SDK 26** - 覆盖90%+活跃设备
+- **Java 17** - 现代语言特性
+- **ViewBinding** - 更安全的视图绑定
 
-- **心情记录** - 选择表情图标记录每日心情，支持文字描述和心情评分
-- **灵感笔记** - 创建、编辑、删除笔记，支持分类标签和颜色标记
-- **数据可视化** - 通过折线图和饼图直观展示心情趋势和笔记分类统计
-- **主题支持** - 自动适配日间和夜间模式
-- **本地存储** - 使用 Room 数据库本地持久化数据
+### 2. Material Design 3
+- 全新的设计系统
+- 圆角卡片设计（16dp）
+- 现代化配色方案
+- 响应式UI组件
+- Material3风格动画
 
-## 🛠 技术栈
+### 3. 性能优化
+- 构建缓存优化
+- 并行编译
+- 增量构建支持
+- 资源压缩（Release版本）
+- ProGuard混淆优化
 
-- **平台**: Android
-- **语言**: Java
-- **架构**: MVVM (Model-View-ViewModel)
-- **数据库**: Room
-- **图表**: MPAndroidChart
-- **UI**: Material Design 3, XML Layout
-- **图片加载**: Glide
-- **构建工具**: Gradle (Kotlin DSL)
+### 4. 依赖库全面更新
+| 组件 | 旧版本 | 新版本 |
+|------|--------|--------|
+| AppCompat | 1.7.1 | 1.7.0 |
+| Material Design | 1.13.0 | 1.12.0 |
+| Activity | 1.13.0 | 1.9.3 |
+| Room | 2.6.1 | 2.6.1 |
+| Lifecycle | 2.7.0 | 2.8.7 |
+| Retrofit | 2.9.0 | 2.11.0 |
+| OkHttp | 4.12.0 | 4.12.0 |
+| Glide | 4.16.0 | 4.16.0 |
 
-## 📦 核心依赖
+## 🎨 设计系统
 
-| 依赖库 | 版本 | 说明 |
-|--------|------|------|
-| Room | 2.6.1 | 本地数据库 ORM |
-| Lifecycle | 2.7.0 | ViewModel & LiveData |
-| MPAndroidChart | v3.1.0 | 数据可视化图表 |
-| Material | 1.11.0 | Material Design 组件 |
-| Glide | 4.16.0 | 图片加载库 |
+### 配色方案
+```
+Primary: #2563EB (MindSpace Blue)
+Secondary: #10B981 (MindSpace Green)
+Accent: #F59E0B (Amber)
+```
 
-## 🚀 快速开始
+### 心情色彩
+- 😊 开心: #34D399 (Green)
+- 🎉 兴奋: #F59E0B (Amber)
+- 😐 平静: #60A5FA (Blue)
+- 😢 难过: #8B5CF6 (Purple)
+- 😠 生气: #EF4444 (Red)
 
-### 环境要求
+### 设计规范
+- 圆角: 16dp (Card), 16dp (Button)
+- 阴影: 2dp elevation
+- 间距: 8dp栅格系统
+- 字体: Material3 Typography
 
-- Android Studio Arctic Fox (2020.3.1) 或更高版本
-- JDK 8 或 JDK 11
-- Android SDK API 23-34
-- Gradle 8.0 或更高版本
-
-### 构建项目
-
-1. **克隆项目**
-   ```bash
-   git clone https://github.com/your-repo/mindspace.git
-   cd mindspace
-   ```
-
-2. **使用 Android Studio 打开**
-   - File → Open → 选择项目根目录
-   - 等待 Gradle 同步完成
-
-3. **同步 Gradle 依赖**
-   - 点击 "Sync Now" 或执行:
-   ```bash
-   ./gradlew build
-   ```
-
-4. **运行项目**
-   - 连接设备或启动模拟器
-   - 点击 Run 按钮 (▶)
-
-## 📂 项目结构
+## 📦 项目结构
 
 ```
 app/
-├── src/main/java/com/mindspace/app/
-│   ├── ui/                      # 界面层
-│   │   ├── activities/          # Activity 页面
-│   │   ├── fragments/           # Fragment 片段
-│   │   └── adapters/            # RecyclerView 适配器
-│   ├── data/                    # 数据层
-│   │   ├── local/              # Room 数据库
-│   │   ├── model/              # 实体类
-│   │   └── repository/         # 数据仓库
-│   ├── viewmodel/              # ViewModel 层
-│   ├── utils/                   # 工具类
-│   └── service/                # 服务
-├── src/main/res/               # 资源文件
-│   ├── layout/                 # 布局文件
-│   ├── values/                 # 值资源
-│   └── menu/                   # 菜单
-└── build.gradle.kts            # 构建配置
+├── src/main/
+│   ├── java/com/mindspace/app/
+│   │   ├── data/
+│   │   │   ├── local/          # 本地数据库（Room）
+│   │   │   ├── model/          # 数据模型
+│   │   │   └── repository/     # 数据仓库
+│   │   ├── network/            # 网络请求（Retrofit）
+│   │   ├── ui/
+│   │   │   ├── activities/     # Activity
+│   │   │   ├── adapters/       # RecyclerView适配器
+│   │   │   └── fragments/      # Fragment
+│   │   ├── utils/              # 工具类
+│   │   └── viewmodel/          # ViewModel
+│   └── res/
+│       ├── drawable/           # 矢量图标
+│       ├── layout/             # 布局文件
+│       ├── menu/               # 菜单文件
+│       └── values/             # 资源值
+└── build.gradle.kts
 ```
 
-## 🎨 主要模块
+## 🔧 构建配置
 
-### 心情记录 (MoodRecord)
-- 支持 5 种心情类型：开心、兴奋、平静、难过、生气
-- 心情评分 1-5 分
-- 记录时间和文字内容
+### Debug版本
+- 禁用混淆
+- 启用调试
+- Application ID后缀：`.debug`
 
-### 灵感笔记 (Note)
-- 4 种分类：工作、学习、生活、创意
-- 颜色标签标记
-- 支持编辑和删除
+### Release版本
+- 启用ProGuard混淆
+- 资源压缩
+- 应用签名配置
 
-### 数据统计 (Data)
-- 心情趋势折线图
-- 心情分布饼图
-- 平均心情指数计算
+## 📋 版本信息
 
-## 📋 开发规范
-
-### 编码规范
-- 使用 4 个空格缩进
-- 类名使用大驼峰命名
-- 方法和变量使用小驼峰命名
-- 常量使用全大写下划线命名
-
-### Git 提交规范
-使用 Conventional Commits:
 ```
-feat(mood): 添加心情记录保存功能
-fix(database): 修复数据库升级崩溃问题
-docs(readme): 更新安装说明
+Version: 2.0.0
+Version Code: 2
+Build Date: 2026-05-30
 ```
 
-## 🔧 构建与发布
+## 🚀 快速开始
 
-### 构建 Debug 版本
+### 构建项目
 ```bash
+./gradlew clean
 ./gradlew assembleDebug
 ```
 
-### 构建 Release 版本
+### 安装到设备
 ```bash
-./gradlew assembleRelease
+./gradlew installDebug
 ```
 
-### 生成签名密钥
+### 运行测试
 ```bash
-keytool -genkey -v \
-    -keystore mindspace.keystore \
-    -alias mindspace \
-    -keyalg RSA \
-    -keysize 2048 \
-    -validity 10000
+./gradlew testDebugUnitTest
+./gradlew connectedDebugAndroidTest
 ```
 
-## 📚 文档
+## 📝 测试账号
 
-详细开发文档请查看 [MindSpace 开发手册](./MindSpace_开发手册.docx)
+### 用户账号
+- 用户名: `user`
+- 密码: `user123`
 
-完整项目文档请查看 [Code Wiki](./CODE_WIKI.md)
+### 管理员账号
+- 用户名: `admin`
+- 密码: `admin123`
 
-## 🐛 常见问题
+## ✨ 功能特性
 
-**Q: Gradle 同步失败？**
-- 检查网络连接
-- 尝试 File → Invalidate Caches / Restart
-- 使用阿里云镜像加速
+### 1. 心情记录
+- 5种心情类型选择
+- 文字记录功能
+- 本地数据库存储
+- 历史记录查看
 
-**Q: 应用崩溃？**
-- 使用 Logcat 查看崩溃日志
-- 检查设备兼容性（需要 Android 7.0+）
+### 2. 笔记管理
+- 创建/编辑/删除笔记
+- 分类管理
+- 搜索功能
+- 本地存储
+
+### 3. 数据统计
+- 心情趋势图
+- 心情分布图
+- 平均心情指数
+- 图表可视化
+
+### 4. 社区功能
+- 发布心情动态
+- 点赞/评论
+- 举报不良内容
+- 用户交流
+
+### 5. 用户系统
+- 注册/登录
+- 用户会话管理
+- 管理员后台
+- 内容审核
+
+### 6. 每日名言
+- 网络获取名言
+- 本地缓存
+- 离线可访问
+- 一键刷新
+
+## 🎯 下一步计划
+
+- [ ] 添加深色模式
+- [ ] 添加数据备份功能
+- [ ] 添加数据同步功能
+- [ ] 添加主题切换
+- [ ] 添加更多统计图表
+- [ ] 添加社区标签功能
+- [ ] 添加通知提醒
+- [ ] 添加用户头像
+- [ ] 添加心情提醒
+- [ ] 添加心情预测
 
 ## 📄 许可证
 
-本项目仅供学习交流使用。
+This project is licensed under the MIT License.
 
-## 👤 作者
+## 👥 贡献者
 
-MindSpace Team - 2026
+MindSpace Development Team
 
 ---
 
-*如果您觉得这个项目有用，请给个 Star ⭐*
+**祝使用愉快！** 🎉

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mindspace.R;
 import com.mindspace.app.data.model.MoodRecord;
+import com.mindspace.app.data.model.Quote;
 import com.mindspace.app.ui.adapters.MoodAdapter;
+import com.mindspace.app.utils.QuoteFetcher;
 import com.mindspace.app.viewmodel.MoodViewModel;
 
 public class HomeFragment extends Fragment {
@@ -30,6 +34,9 @@ public class HomeFragment extends Fragment {
     private EditText etMoodContent;
     private ImageButton btnHappy, btnExcited, btnNormal, btnSad, btnAngry;
     private Button btnSaveMood;
+    private TextView tvQuoteContent, tvQuoteAuthor;
+    private ImageButton btnRefreshQuote;
+    private LinearLayout layoutEmpty;
     
     private String selectedMoodType = null;
     private Toast currentToast;
@@ -49,11 +56,13 @@ public class HomeFragment extends Fragment {
         setupRecyclerView();
         setupMoodButtons();
         setupViewModel();
+        loadDailyQuote();
     }
 
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.rv_recent_moods);
         etMoodContent = view.findViewById(R.id.et_mood_content);
+        layoutEmpty = view.findViewById(R.id.layout_empty);
         
         btnHappy = view.findViewById(R.id.btn_happy);
         btnExcited = view.findViewById(R.id.btn_excited);
@@ -61,6 +70,61 @@ public class HomeFragment extends Fragment {
         btnSad = view.findViewById(R.id.btn_sad);
         btnAngry = view.findViewById(R.id.btn_angry);
         btnSaveMood = view.findViewById(R.id.btn_save_mood);
+        
+        tvQuoteContent = view.findViewById(R.id.tv_quote_content);
+        tvQuoteAuthor = view.findViewById(R.id.tv_quote_author);
+        btnRefreshQuote = view.findViewById(R.id.btn_refresh_quote);
+    }
+
+    private void loadDailyQuote() {
+        if (getContext() == null) {
+            return;
+        }
+        
+        Quote savedQuote = QuoteFetcher.getSavedQuote(requireContext());
+        displayQuote(savedQuote);
+        
+        QuoteFetcher.getDailyQuote(requireContext(), new QuoteFetcher.QuoteListener() {
+            @Override
+            public void onQuoteLoaded(Quote quote) {
+                if (isAdded() && getContext() != null) {
+                    displayQuote(quote);
+                }
+            }
+
+            @Override
+            public void onQuoteError(String error) {
+                // 静默处理错误，不显示Toast避免空指针
+            }
+        });
+
+        btnRefreshQuote.setOnClickListener(v -> {
+            if (getContext() == null) {
+                return;
+            }
+            QuoteFetcher.fetchNewQuote(requireContext(), new QuoteFetcher.QuoteListener() {
+                @Override
+                public void onQuoteLoaded(Quote quote) {
+                    if (isAdded() && getContext() != null) {
+                        displayQuote(quote);
+                    }
+                }
+
+                @Override
+                public void onQuoteError(String error) {
+                    if (isAdded() && getContext() != null) {
+                        showToast(R.string.toast_quote_load_failed);
+                    }
+                }
+            });
+        });
+    }
+
+    private void displayQuote(Quote quote) {
+        if (tvQuoteContent != null && tvQuoteAuthor != null) {
+            tvQuoteContent.setText("\"" + quote.getContent() + "\"");
+            tvQuoteAuthor.setText("—— " + quote.getAuthor());
+        }
     }
 
     private void setupRecyclerView() {
@@ -153,7 +217,17 @@ public class HomeFragment extends Fragment {
             if (adapter != null) {
                 adapter.submitList(moods);
             }
+            updateEmptyState(moods == null || moods.isEmpty());
         });
+    }
+
+    private void updateEmptyState(boolean isEmpty) {
+        if (recyclerView != null) {
+            recyclerView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        }
+        if (layoutEmpty != null) {
+            layoutEmpty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+        }
     }
 
     private void showDeleteDialog(MoodRecord mood) {
@@ -213,6 +287,10 @@ public class HomeFragment extends Fragment {
         btnSad = null;
         btnAngry = null;
         btnSaveMood = null;
+        tvQuoteContent = null;
+        tvQuoteAuthor = null;
+        btnRefreshQuote = null;
+        layoutEmpty = null;
         adapter = null;
     }
 }

@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"
+        tools:targetApi="tiramisu" />
+
     <application
         android:allowBackup="false"
         android:fullBackupOnly="false"
@@ -11,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MindSpace">
         <activity
-            android:name="com.mindspace.app.ui.activities.MainActivity"
+            android:name="com.mindspace.app.ui.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +25,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.mindspace.app.ui.activities.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.mindspace.app.ui.activities.MainActivity"
+            android:exported="false" />
+        <activity
             android:name="com.mindspace.app.ui.activities.NoteActivity"
             android:exported="false"
             android:label="@string/title_notes" />
@@ -27,6 +38,10 @@
             android:name="com.mindspace.app.ui.activities.DataActivity"
             android:exported="false"
             android:label="@string/title_data" />
+        <activity
+            android:name="com.mindspace.app.ui.activities.AdminActivity"
+            android:exported="false"
+            android:label="@string/title_admin" />
         <service
             android:name="com.mindspace.app.service.BackupService"
             android:exported="false" />

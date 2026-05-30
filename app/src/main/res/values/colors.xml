@@ -1,36 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#7C4DFF</color>
-    <color name="primary_dark">#651FFF</color>
-    <color name="primary_light">#B388FF</color>
-    <color name="accent">#FF6D9A</color>
-    <color name="accent_dark">#FF4081</color>
-    <color name="background">#FAFAFA</color>
+    <!-- Primary Colors - MindSpace Blue Gradient -->
+    <color name="primary">#667EEA</color>
+    <color name="primary_dark">#5A67D8</color>
+    <color name="primary_light">#A3BFFA</color>
+    <color name="primary_lightest">#EBF4FF</color>
+    
+    <!-- Secondary Colors - Soft Teal -->
+    <color name="secondary">#764BA2</color>
+    <color name="secondary_dark">#6B46C1</color>
+    <color name="secondary_light">#B794F4</color>
+    
+    <!-- Accent Colors - Warm Peach -->
+    <color name="accent">#F6AD55</color>
+    <color name="accent_light">#FBD38D</color>
+    
+    <!-- Mood Colors -->
+    <color name="mood_happy">#68D391</color>
+    <color name="mood_excited">#F6E05E</color>
+    <color name="mood_normal">#90CDF4</color>
+    <color name="mood_sad">#B794F4</color>
+    <color name="mood_angry">#FC8181</color>
+    
+    <!-- Background Colors -->
+    <color name="background">#F7FAFC</color>
     <color name="surface">#FFFFFF</color>
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
-    <color name="text_hint">#BDBDBD</color>
+    <color name="surface_alt">#EDF2F7</color>
+    <color name="surface_card">#FFFFFF</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#1A202C</color>
+    <color name="text_secondary">#4A5568</color>
+    <color name="text_tertiary">#A0AEC0</color>
+    <color name="text_inverse">#FFFFFF</color>
+    <color name="text_hint">#A0AEC0</color>
+    
+    <!-- Divider & Border -->
+    <color name="divider">#E2E8F0</color>
+    <color name="border">#CBD5E0</color>
+    
+    <!-- Status Colors -->
+    <color name="success">#48BB78</color>
+    <color name="warning">#F6AD55</color>
+    <color name="error">#F56565</color>
+    <color name="info">#4299E1</color>
+    
+    <!-- Shadow & Elevation -->
+    <color name="shadow_light">#0A000000</color>
+    <color name="shadow_dark">#1A000000</color>
+    
+    <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="success">#00C853</color>
-    <color name="warning">#FFAB00</color>
-    <color name="info">#00B0FF</color>
-    <color name="error">#FF5252</color>
-    <color name="divider">#E0E0E0</color>
     
-    <color name="mood_happy">#4CAF50</color>
-    <color name="mood_happy_bg">#E8F5E9</color>
-    <color name="mood_excited">#FF9800</color>
-    <color name="mood_excited_bg">#FFF3E0</color>
-    <color name="mood_normal">#2196F3</color>
-    <color name="mood_normal_bg">#E3F2FD</color>
-    <color name="mood_sad">#9C27B0</color>
-    <color name="mood_sad_bg">#F3E5F5</color>
-    <color name="mood_angry">#F44336</color>
-    <color name="mood_angry_bg">#FFEBEE</color>
-    
-    <color name="note_work">#FF6D9A</color>
-    <color name="note_study">#7C4DFF</color>
-    <color name="note_life">#00C853</color>
-    <color name="note_idea">#FFAB00</color>
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#667EEA</color>
+    <color name="gradient_end">#764BA2</color>
 </resources>
