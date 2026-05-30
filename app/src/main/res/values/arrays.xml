@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="note_categories">
+        <item>工作</item>
+        <item>学习</item>
+        <item>生活</item>
+        <item>创意</item>
+    </string-array>
+</resources>
