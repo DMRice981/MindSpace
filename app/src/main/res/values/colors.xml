@@ -1,59 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Primary Colors - MindSpace Blue Gradient -->
-    <color name="primary">#667EEA</color>
-    <color name="primary_dark">#5A67D8</color>
-    <color name="primary_light">#A3BFFA</color>
-    <color name="primary_lightest">#EBF4FF</color>
+    <!-- Primary Colors - Modern Gradient Purple/Blue -->
+    <color name="primary">#6366F1</color>
+    <color name="primary_dark">#4F46E5</color>
+    <color name="primary_light">#818CF8</color>
+    <color name="primary_lightest">#EEF2FF</color>
     
-    <!-- Secondary Colors - Soft Teal -->
-    <color name="secondary">#764BA2</color>
-    <color name="secondary_dark">#6B46C1</color>
-    <color name="secondary_light">#B794F4</color>
+    <!-- Secondary Colors - Soft Mint -->
+    <color name="secondary">#10B981</color>
+    <color name="secondary_dark">#059669</color>
+    <color name="secondary_light">#34D399</color>
     
-    <!-- Accent Colors - Warm Peach -->
-    <color name="accent">#F6AD55</color>
-    <color name="accent_light">#FBD38D</color>
+    <!-- Accent Colors - Vibrant Coral -->
+    <color name="accent">#F43F5E</color>
+    <color name="accent_light">#FB7185</color>
     
-    <!-- Mood Colors -->
-    <color name="mood_happy">#68D391</color>
-    <color name="mood_excited">#F6E05E</color>
-    <color name="mood_normal">#90CDF4</color>
-    <color name="mood_sad">#B794F4</color>
-    <color name="mood_angry">#FC8181</color>
+    <!-- Mood Colors - Vibrant and Playful -->
+    <color name="mood_happy">#22C55E</color>
+    <color name="mood_excited">#EAB308</color>
+    <color name="mood_normal">#3B82F6</color>
+    <color name="mood_sad">#8B5CF6</color>
+    <color name="mood_angry">#EF4444</color>
     
-    <!-- Background Colors -->
-    <color name="background">#F7FAFC</color>
+    <!-- Background Colors - Soft Neutrals -->
+    <color name="background">#FAFAFA</color>
     <color name="surface">#FFFFFF</color>
-    <color name="surface_alt">#EDF2F7</color>
+    <color name="surface_alt">#F5F5F5</color>
     <color name="surface_card">#FFFFFF</color>
     
-    <!-- Text Colors -->
-    <color name="text_primary">#1A202C</color>
-    <color name="text_secondary">#4A5568</color>
-    <color name="text_tertiary">#A0AEC0</color>
+    <!-- Text Colors - Clear Hierarchy -->
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="text_tertiary">#9CA3AF</color>
     <color name="text_inverse">#FFFFFF</color>
-    <color name="text_hint">#A0AEC0</color>
+    <color name="text_hint">#9CA3AF</color>
     
     <!-- Divider & Border -->
-    <color name="divider">#E2E8F0</color>
-    <color name="border">#CBD5E0</color>
+    <color name="divider">#E5E7EB</color>
+    <color name="border">#D1D5DB</color>
     
     <!-- Status Colors -->
-    <color name="success">#48BB78</color>
-    <color name="warning">#F6AD55</color>
-    <color name="error">#F56565</color>
-    <color name="info">#4299E1</color>
+    <color name="success">#10B981</color>
+    <color name="warning">#F59E0B</color>
+    <color name="error">#EF4444</color>
+    <color name="info">#3B82F6</color>
     
-    <!-- Shadow & Elevation -->
-    <color name="shadow_light">#0A000000</color>
-    <color name="shadow_dark">#1A000000</color>
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#6366F1</color>
+    <color name="gradient_end">#EC4899</color>
+    <color name="gradient_warm_start">#F43F5E</color>
+    <color name="gradient_warm_end">#F59E0B</color>
     
     <!-- Basic Colors -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    
-    <!-- Gradient Colors -->
-    <color name="gradient_start">#667EEA</color>
-    <color name="gradient_end">#764BA2</color>
 </resources>

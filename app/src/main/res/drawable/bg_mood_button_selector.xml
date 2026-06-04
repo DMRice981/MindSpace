@@ -2,15 +2,15 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true">
         <layer-list>
-            <item android:bottom="4dp" android:left="4dp">
+            <item>
                 <shape android:shape="oval">
-                    <solid android:color="#FFE0E0"/>
+                    <solid android:color="#E0E0E0"/>
                 </shape>
             </item>
-            <item android:top="2dp" android:right="2dp">
+            <item android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp">
                 <shape android:shape="oval">
-                    <gradient android:angle="45" android:endColor="#FF8E8E" android:startColor="#FF6B6B"/>
-                    <stroke android:width="3dp" android:color="#FF5555"/>
+                    <solid android:color="@color/white"/>
+                    <stroke android:width="3dp" android:color="@color/primary"/>
                 </shape>
             </item>
         </layer-list>
@@ -19,22 +19,28 @@
         <layer-list>
             <item>
                 <shape android:shape="oval">
-                    <gradient android:angle="45" android:endColor="#FFA0A0" android:startColor="#FF8E8E"/>
+                    <solid android:color="#F0F0F0"/>
+                </shape>
+            </item>
+            <item android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp">
+                <shape android:shape="oval">
+                    <solid android:color="@color/surface"/>
+                    <stroke android:width="2dp" android:color="@color/primary_light"/>
                 </shape>
             </item>
         </layer-list>
     </item>
     <item>
         <layer-list>
-            <item android:bottom="3dp" android:left="3dp">
+            <item>
                 <shape android:shape="oval">
-                    <solid android:color="#F0F0F0"/>
+                    <solid android:color="#F5F5F5"/>
                 </shape>
             </item>
-            <item android:top="1dp" android:right="1dp">
+            <item android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp">
                 <shape android:shape="oval">
-                    <solid android:color="@color/surface"/>
-                    <stroke android:width="2dp" android:color="#E0E0E0"/>
+                    <solid android:color="@color/white"/>
+                    <stroke android:width="2dp" android:color="#E8E8E8"/>
                 </shape>
             </item>
         </layer-list>

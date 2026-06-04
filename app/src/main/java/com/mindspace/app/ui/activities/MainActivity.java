@@ -14,6 +14,7 @@ import com.mindspace.app.ui.fragments.CommunityFragment;
 import com.mindspace.app.ui.fragments.HomeFragment;
 import com.mindspace.app.ui.fragments.NotesFragment;
 import com.mindspace.app.ui.fragments.DataFragment;
+import com.mindspace.app.ui.fragments.ProfileFragment;
 import com.mindspace.app.utils.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new NotesFragment();
             } else if (itemId == R.id.nav_data) {
                 fragment = new DataFragment();
+            } else if (itemId == R.id.nav_profile) {
+                fragment = new ProfileFragment();
             }
             
             if (fragment != null) {
