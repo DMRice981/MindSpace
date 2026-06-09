@@ -49,4 +49,7 @@ public interface NoteDao {
 
     @Query("DELETE FROM notes")
     void deleteAllNotes();
+
+    @Query("SELECT * FROM notes ORDER BY updated_at DESC")
+    List<Note> getAllNotesSync();
 }

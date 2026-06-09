@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:fillViewport="true"
+    android:background="@drawable/bg_app_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="16dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -17,16 +18,18 @@
             android:text="📊 数据分析"
             android:textSize="32sp"
             android:textStyle="bold"
-            android:textColor="@color/text_primary"
-            android:paddingBottom="4dp" />
+            android:textColor="@color/white"
+            android:layout_marginBottom="4dp" />
 
         <TextView
+            android:id="@+id/tv_mood_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="了解你的心情变化，发现生活模式"
             android:textSize="14sp"
-            android:textColor="@color/text_secondary"
-            android:paddingBottom="20dp" />
+            android:textColor="@color/white"
+            android:alpha="0.85"
+            android:layout_marginBottom="20dp" />
 
         <!-- 统计概览 -->
         <LinearLayout
@@ -35,71 +38,134 @@
             android:orientation="horizontal"
             android:layout_marginBottom="16dp">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                app:cardBackgroundColor="#CCFFFFFF"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    android:gravity="center"
-                    android:background="@drawable/bg_stat_card_happy">
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_average_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="😊"
-                        android:textSize="32sp"
-                        android:layout_marginBottom="4dp" />
+                        android:layout_marginTop="4dp"
+                        android:text="平均心情"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                app:cardBackgroundColor="#CCFFFFFF"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/tv_happy_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
-                        android:textSize="24sp"
+                        android:textSize="28sp"
                         android:textStyle="bold"
-                        android:textColor="#4CAF50" />
+                        android:textColor="@color/mood_happy" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="开心天数"
+                        android:layout_marginTop="4dp"
+                        android:text="开心次数"
                         android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginTop="4dp" />
+                        android:textColor="@color/text_secondary" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                android:layout_marginEnd="0dp"
+                app:cardBackgroundColor="#CCFFFFFF"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    android:gravity="center"
-                    android:background="@drawable/bg_stat_card_excited">
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tv_total_records"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/accent" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🤩"
-                        android:textSize="32sp"
-                        android:layout_marginBottom="4dp" />
+                        android:layout_marginTop="4dp"
+                        android:text="总记录"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- 心情详细统计 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                app:cardBackgroundColor="#CCFFFFFF"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/tv_excited_count"
@@ -108,40 +174,33 @@
                         android:text="0"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        android:textColor="#FF9800" />
+                        android:textColor="@color/mood_excited" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="兴奋天数"
+                        android:layout_marginTop="4dp"
+                        android:text="兴奋次数"
                         android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginTop="4dp" />
+                        android:textColor="@color/text_secondary" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                android:layout_marginEnd="0dp"
+                app:cardBackgroundColor="#CCFFFFFF"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    android:gravity="center"
-                    android:background="@drawable/bg_stat_card_calm">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="😐"
-                        android:textSize="32sp"
-                        android:layout_marginBottom="4dp" />
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/tv_calm_count"
@@ -150,273 +209,187 @@
                         android:text="0"
                         android:textSize="24sp"
                         android:textStyle="bold"
-                        android:textColor="#2196F3" />
+                        android:textColor="@color/mood_normal" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="平静天数"
+                        android:layout_marginTop="4dp"
+                        android:text="平静次数"
                         android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginTop="4dp" />
+                        android:textColor="@color/text_secondary" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <!-- 平均心情指数卡片 -->
-        <androidx.cardview.widget.CardView
+        <!-- 心情趋势图表 -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp">
+            app:cardBackgroundColor="#CCFFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp"
-                android:background="@drawable/bg_average_card">
+                android:padding="20dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="💫 本月平均心情指数"
-                    android:textSize="16sp"
+                    android:text="📈 心情趋势"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="12dp" />
-
-                <TextView
-                    android:id="@+id/tv_average_score"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="--"
-                    android:textSize="48sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/tv_mood_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="继续保持！"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_secondary"
-                    android:gravity="center"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- 心情趋势图表 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp"
-                android:background="@color/white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="📈 心情趋势"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/text_primary" />
-
-                    <TextView
-                        android:id="@+id/tv_trend_period"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="最近30天"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"
-                        android:background="@drawable/bg_chip"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="4dp" />
-                </LinearLayout>
+                    android:layout_marginBottom="16dp" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/line_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp" />
+                    android:layout_height="200dp" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <!-- 心情分布图表 -->
-        <androidx.cardview.widget.CardView
+        <!-- 心情分布饼图 -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp">
+            app:cardBackgroundColor="#CCFFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp"
-                android:background="@color/white">
+                android:padding="20dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🥧 心情分布"
+                    android:text="🎯 心情分布"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="16dp" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pie_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 每周心情统计柱状图 -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#CCFFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📊 每周心情统计"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="16dp" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_chart_weekly"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 最佳心情记录 -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="#CCFFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏆 最佳心情记录"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
                     android:layout_marginBottom="12dp" />
 
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/pie_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="280dp" />
-
-                <!-- 图例 -->
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_best_mood"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <View
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:background="@drawable/legend_happy"
-                            android:layout_gravity="center_vertical" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="开心"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
-                            android:layout_marginStart="8dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <View
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:background="@drawable/legend_excited"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="16dp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="兴奋"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
-                            android:layout_marginStart="8dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
-
-                        <View
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:background="@drawable/legend_calm"
-                            android:layout_gravity="center_vertical" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="平静"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
-                            android:layout_marginStart="8dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <View
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:background="@drawable/legend_sad"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="16dp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="难过"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
-                            android:layout_marginStart="8dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <View
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:background="@drawable/legend_angry"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="16dp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="生气"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
-                            android:layout_marginStart="8dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-                </LinearLayout>
+                    android:text="暂无记录，开始记录你的心情吧！"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <!-- 总记录数 -->
-        <androidx.cardview.widget.CardView
+        <!-- 连续记录天数 -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp">
+            android:layout_marginBottom="80dp"
+            app:cardBackgroundColor="#CCFFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="20dp"
-                android:gravity="center_vertical"
-                android:background="@color/white">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="📝 总记录数"
+                    android:text="🔥 连续记录"
                     android:textSize="16sp"
-                    android:textColor="@color/text_secondary" />
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_total_records"
+                    android:id="@+id/tv_streak"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textSize="28sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 天"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </ScrollView>

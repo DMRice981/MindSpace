@@ -98,6 +98,7 @@
     <string name="label_mood_distribution">心情分布</string>
     <string name="label_reported_posts">被举报帖子</string>
     <string name="label_reported_comments">被举报评论</string>
+    <string name="label_user_management">用户管理</string>
     <string name="label_quote">每日名言</string>
     <string name="label_empty_moods">还没有心情记录\n快去记录你的第一个心情吧！</string>
     <string name="label_empty_notes">还没有笔记\n开始记录你的想法吧！</string>

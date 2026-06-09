@@ -1,82 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/background">
+    android:background="@drawable/bg_app_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="16dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_mood"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary"
             android:fontFamily="sans-serif-medium"
-            android:paddingBottom="4dp" />
+            android:text="@string/title_mood"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="此刻的你感觉如何？"
-            android:textSize="16sp"
-            android:textColor="@color/text_secondary"
-            android:paddingBottom="16dp" />
-
-        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            android:layout_marginTop="4dp"
+            android:text="此刻的你感觉如何？"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:alpha="0.85" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#CCFFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp"
-                android:background="@drawable/bg_quote_card">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="✨ 每日一句"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary"
-                    android:layout_marginBottom="12dp" />
-
-                <TextView
-                    android:id="@+id/tv_quote_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="正在加载..."
-                    android:textSize="18sp"
-                    android:textColor="@color/text_primary"
-                    android:lineSpacingExtra="4dp"
-                    android:layout_marginBottom="12dp" />
+                android:padding="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:gravity="end">
+                    android:layout_marginBottom="12dp">
 
                     <TextView
-                        android:id="@+id/tv_quote_author"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="—— 佚名"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginEnd="8dp" />
+                        android:layout_weight="1"
+                        android:text="✨ 每日一句"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary" />
 
                     <ImageButton
                         android:id="@+id/btn_refresh_quote"
@@ -88,37 +71,56 @@
                         android:scaleType="centerInside"
                         android:contentDescription="刷新名言" />
                 </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
+                <TextView
+                    android:id="@+id/tv_quote_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="正在加载..."
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_quote_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="—— 佚名"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            app:cardBackgroundColor="#CCFFFFFF"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp"
-                android:background="@color/white">
+                android:padding="24dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="选择你的心情"
                     android:textSize="16sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="16dp" />
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="20dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center_vertical">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -129,10 +131,10 @@
 
                         <ImageButton
                             android:id="@+id/btn_happy"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="76dp"
+                            android:layout_height="76dp"
                             android:src="@drawable/ic_mood_happy"
-                            android:background="@drawable/bg_mood_button_selector"
+                            android:background="@drawable/bg_happy_gradient"
                             android:padding="12dp"
                             android:scaleType="centerInside"
                             android:contentDescription="@string/mood_happy" />
@@ -141,8 +143,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/mood_happy"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
                             android:layout_marginTop="8dp" />
                     </LinearLayout>
 
@@ -155,10 +158,10 @@
 
                         <ImageButton
                             android:id="@+id/btn_excited"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="76dp"
+                            android:layout_height="76dp"
                             android:src="@drawable/ic_mood_excited"
-                            android:background="@drawable/bg_mood_button_selector"
+                            android:background="@drawable/bg_excited_gradient"
                             android:padding="12dp"
                             android:scaleType="centerInside"
                             android:contentDescription="@string/mood_excited" />
@@ -167,8 +170,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/mood_excited"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
                             android:layout_marginTop="8dp" />
                     </LinearLayout>
 
@@ -181,10 +185,10 @@
 
                         <ImageButton
                             android:id="@+id/btn_normal"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="76dp"
+                            android:layout_height="76dp"
                             android:src="@drawable/ic_mood_normal"
-                            android:background="@drawable/bg_mood_button_selector"
+                            android:background="@drawable/bg_normal_gradient"
                             android:padding="12dp"
                             android:scaleType="centerInside"
                             android:contentDescription="@string/mood_normal" />
@@ -193,8 +197,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/mood_normal"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
                             android:layout_marginTop="8dp" />
                     </LinearLayout>
 
@@ -207,10 +212,10 @@
 
                         <ImageButton
                             android:id="@+id/btn_sad"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="76dp"
+                            android:layout_height="76dp"
                             android:src="@drawable/ic_mood_sad"
-                            android:background="@drawable/bg_mood_button_selector"
+                            android:background="@drawable/bg_sad_gradient"
                             android:padding="12dp"
                             android:scaleType="centerInside"
                             android:contentDescription="@string/mood_sad" />
@@ -219,8 +224,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/mood_sad"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
                             android:layout_marginTop="8dp" />
                     </LinearLayout>
 
@@ -233,10 +239,10 @@
 
                         <ImageButton
                             android:id="@+id/btn_angry"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="76dp"
+                            android:layout_height="76dp"
                             android:src="@drawable/ic_mood_angry"
-                            android:background="@drawable/bg_mood_button_selector"
+                            android:background="@drawable/bg_angry_gradient"
                             android:padding="12dp"
                             android:scaleType="centerInside"
                             android:contentDescription="@string/mood_angry" />
@@ -245,61 +251,76 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/mood_angry"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
                             android:layout_marginTop="8dp" />
                     </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_mood_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxCornerRadiusBottomEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxStrokeColor="@color/primary"
-            app:hintTextColor="@color/primary"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#CCFFFFFF"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_mood_content"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:minLines="4"
-                android:gravity="top"
-                android:textSize="16sp"
-                android:padding="16dp" />
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_mood_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary">
 
-        <Button
-            android:id="@+id/btn_save_mood"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/bg_save_button"
-            android:text="@string/btn_save"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:elevation="6dp" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_mood_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="4"
+                        android:gravity="top"
+                        android:textSize="16sp"
+                        android:padding="16dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_mood"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/primary"
+                    android:text="@string/btn_save_mood"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="16dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
             android:text="@string/label_recent_records"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textColor="@color/white" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -333,15 +354,17 @@
                     android:layout_height="wrap_content"
                     android:text="还没有心情记录"
                     android:textSize="18sp"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="8dp" />
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp"
+                    android:alpha="0.85" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="选择一个心情，开始记录吧！"
                     android:textSize="14sp"
-                    android:textColor="@color/text_secondary" />
+                    android:textColor="@color/white"
+                    android:alpha="0.7" />
 
             </LinearLayout>
 

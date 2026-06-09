@@ -31,4 +31,10 @@ public interface UserDao {
 
     @Query("DELETE FROM users WHERE id = :id")
     void delete(int id);
+
+    @Query("UPDATE users SET isBanned = :isBanned WHERE id = :userId")
+    void updateBanStatus(int userId, boolean isBanned);
+
+    @Query("SELECT * FROM users WHERE isBanned = 1")
+    List<User> getBannedUsers();
 }

@@ -12,6 +12,7 @@ public class CommunityPost {
     private String username;
     private String content;
     private String mood;
+    private String tags;
     private long createdAt;
     private int likeCount;
     private int commentCount;
@@ -70,6 +71,14 @@ public class CommunityPost {
 
     public void setMood(String mood) {
         this.mood = mood;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public long getCreatedAt() {

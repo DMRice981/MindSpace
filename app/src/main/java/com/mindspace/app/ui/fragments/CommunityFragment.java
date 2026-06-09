@@ -16,20 +16,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.mindspace.R;
+import com.mindspace.app.data.local.AppDatabase;
 import com.mindspace.app.data.model.CommunityPost;
+import com.mindspace.app.data.model.User;
 import com.mindspace.app.data.repository.CommunityRepository;
 import com.mindspace.app.ui.adapters.PostAdapter;
 import com.mindspace.app.utils.SessionManager;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class CommunityFragment extends Fragment {
     private SessionManager sessionManager;
     private CommunityRepository repository;
+    private AppDatabase database;
     private PostAdapter adapter;
     private TextInputEditText etPostContent;
     private RadioGroup rgMood;
     private Button btnPost;
     private RecyclerView rvPosts;
     private Toast currentToast;
+    private ExecutorService executorService;
 
     @Nullable
     @Override
@@ -47,11 +54,27 @@ public class CommunityFragment extends Fragment {
         
         sessionManager = new SessionManager(requireContext());
         repository = new CommunityRepository(requireContext());
+        database = AppDatabase.getInstance(requireContext());
+        executorService = Executors.newSingleThreadExecutor();
         
         initViews(view);
         setupRecyclerView();
         setupListeners();
         loadPosts();
+        checkUserBanStatus();
+    }
+
+    private void checkUserBanStatus() {
+        executorService.execute(() -> {
+            User user = database.userDao().findById(sessionManager.getUserId());
+            if (user != null && user.isBanned()) {
+                requireActivity().runOnUiThread(() -> {
+                    etPostContent.setEnabled(false);
+                    btnPost.setEnabled(false);
+                    Toast.makeText(requireContext(), "您已被禁言，无法发布内容", Toast.LENGTH_LONG).show();
+                });
+            }
+        });
     }
 
     private void initViews(View view) {
@@ -177,8 +200,12 @@ public class CommunityFragment extends Fragment {
         if (currentToast != null) {
             currentToast.cancel();
         }
+        if (executorService != null) {
+            executorService.shutdown();
+        }
         sessionManager = null;
         repository = null;
+        database = null;
         adapter = null;
         etPostContent = null;
         rgMood = null;

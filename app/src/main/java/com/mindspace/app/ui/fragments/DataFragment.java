@@ -11,8 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.example.mindspace.R;
 import com.mindspace.app.data.model.MoodRecord;
@@ -30,12 +32,15 @@ public class DataFragment extends Fragment {
     
     private LineChart lineChart;
     private PieChart pieChart;
+    private BarChart barChartWeekly;
     private TextView tvAverageScore;
     private TextView tvMoodDesc;
     private TextView tvHappyCount;
     private TextView tvExcitedCount;
     private TextView tvCalmCount;
     private TextView tvTotalRecords;
+    private TextView tvBestMood;
+    private TextView tvStreak;
     
     private List<MoodRecord> recentMoods = new ArrayList<>();
     private int totalRecords = 0;
@@ -59,17 +64,21 @@ public class DataFragment extends Fragment {
     private void initViews(View view) {
         lineChart = view.findViewById(R.id.line_chart);
         pieChart = view.findViewById(R.id.pie_chart);
+        barChartWeekly = view.findViewById(R.id.bar_chart_weekly);
         tvAverageScore = view.findViewById(R.id.tv_average_score);
         tvMoodDesc = view.findViewById(R.id.tv_mood_desc);
         tvHappyCount = view.findViewById(R.id.tv_happy_count);
         tvExcitedCount = view.findViewById(R.id.tv_excited_count);
         tvCalmCount = view.findViewById(R.id.tv_calm_count);
         tvTotalRecords = view.findViewById(R.id.tv_total_records);
+        tvBestMood = view.findViewById(R.id.tv_best_mood);
+        tvStreak = view.findViewById(R.id.tv_streak);
     }
 
     private void setupCharts() {
         ChartUtils.setupLineChart(lineChart);
         ChartUtils.setupPieChart(pieChart);
+        ChartUtils.setupBarChart(barChartWeekly);
     }
 
     private void setupViewModel() {
@@ -80,6 +89,9 @@ public class DataFragment extends Fragment {
             totalRecords = moods.size();
             tvTotalRecords.setText(String.valueOf(totalRecords));
             updateMoodLineChart();
+            updateWeeklyBarChart();
+            updateBestMood();
+            updateStreak();
         });
         
         dataViewModel.getMoodStatistics().observe(getViewLifecycleOwner(), stats -> {
@@ -148,5 +160,100 @@ public class DataFragment extends Fragment {
             description = "最近不太顺？记得要照顾好自己！❤️";
         }
         tvMoodDesc.setText(description);
+    }
+
+    private void updateWeeklyBarChart() {
+        if (recentMoods == null || recentMoods.isEmpty()) {
+            barChartWeekly.clear();
+            return;
+        }
+
+        List<BarEntry> entries = new ArrayList<>();
+        String[] days = {"周一", "周二", "周三", "周四", "周五", "周六", "周日"};
+        
+        float[] dailyScores = new float[7];
+        int[] dailyCounts = new int[7];
+        
+        for (MoodRecord mood : recentMoods) {
+            long time = mood.getCreatedAt();
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            cal.setTimeInMillis(time);
+            int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK) - 2;
+            if (dayOfWeek < 0) dayOfWeek = 6;
+            
+            if (dayOfWeek >= 0 && dayOfWeek < 7) {
+                dailyScores[dayOfWeek] += mood.getMoodScore();
+                dailyCounts[dayOfWeek]++;
+            }
+        }
+        
+        for (int i = 0; i < 7; i++) {
+            float avgScore = dailyCounts[i] > 0 ? dailyScores[i] / dailyCounts[i] : 0f;
+            entries.add(new BarEntry(i, avgScore));
+        }
+        
+        List<Integer> colors = ChartUtils.getMoodColors();
+        ChartUtils.updateBarChart(barChartWeekly, entries, "每日平均心情", colors);
+    }
+
+    private void updateBestMood() {
+        if (recentMoods == null || recentMoods.isEmpty()) {
+            tvBestMood.setText("暂无记录，开始记录你的心情吧！");
+            return;
+        }
+        
+        MoodRecord bestMood = null;
+        int maxScore = -1;
+        
+        for (MoodRecord mood : recentMoods) {
+            if (mood.getMoodScore() > maxScore) {
+                maxScore = mood.getMoodScore();
+                bestMood = mood;
+            }
+        }
+        
+        if (bestMood != null) {
+            String moodType = getMoodEmoji(bestMood.getMoodType());
+            String content = bestMood.getContent() != null ? bestMood.getContent() : "没有备注";
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy年MM月dd日", java.util.Locale.getDefault());
+            String date = sdf.format(new java.util.Date(bestMood.getCreatedAt()));
+            tvBestMood.setText(String.format("%s %s\n记录于：%s\n备注：%s", 
+                moodType, "心情满分的一天！", date, content));
+        }
+    }
+
+    private void updateStreak() {
+        if (recentMoods == null || recentMoods.isEmpty()) {
+            tvStreak.setText("0");
+            return;
+        }
+        
+        int streak = 1;
+        long lastDate = recentMoods.get(0).getCreatedAt();
+        
+        for (int i = 1; i < recentMoods.size(); i++) {
+            long currentDate = recentMoods.get(i).getCreatedAt();
+            long daysBetween = (lastDate - currentDate) / (1000 * 60 * 60 * 24);
+            
+            if (daysBetween == 1) {
+                streak++;
+            } else if (daysBetween > 1) {
+                break;
+            }
+            lastDate = currentDate;
+        }
+        
+        tvStreak.setText(String.valueOf(streak));
+    }
+
+    private String getMoodEmoji(String moodType) {
+        switch (moodType) {
+            case "HAPPY": return "😊";
+            case "EXCITED": return "🤩";
+            case "NORMAL": return "😐";
+            case "SAD": return "😢";
+            case "ANGRY": return "😠";
+            default: return "😊";
+        }
     }
 }

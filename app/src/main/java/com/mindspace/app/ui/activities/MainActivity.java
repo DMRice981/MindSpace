@@ -16,6 +16,7 @@ import com.mindspace.app.ui.fragments.NotesFragment;
 import com.mindspace.app.ui.fragments.DataFragment;
 import com.mindspace.app.ui.fragments.ProfileFragment;
 import com.mindspace.app.utils.SessionManager;
+import com.mindspace.app.utils.ThemeManager;
 
 public class MainActivity extends AppCompatActivity {
     
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        ThemeManager.getInstance(this).applyTheme();
+        
         setContentView(R.layout.activity_main);
         
         sessionManager = new SessionManager(this);

@@ -13,6 +13,7 @@ public class User {
     private String email;
     private String avatar;
     private boolean isAdmin;
+    private boolean isBanned;
     private long createdAt;
 
     public User() {
@@ -73,6 +74,14 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
     }
 
     public long getCreatedAt() {

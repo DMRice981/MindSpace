@@ -2,10 +2,14 @@ package com.mindspace.app.utils;
 
 import android.graphics.Color;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -190,5 +194,49 @@ public class ChartUtils {
         colors.add(Color.parseColor("#9C27B0"));
         colors.add(Color.parseColor(COLOR_ACCENT));
         return colors;
+    }
+
+    public static void setupBarChart(BarChart chart) {
+        chart.setTouchEnabled(true);
+        chart.setDragEnabled(true);
+        chart.setScaleEnabled(true);
+        chart.setDrawGridBackground(false);
+        chart.setBackgroundColor(Color.TRANSPARENT);
+        chart.getDescription().setEnabled(false);
+        chart.setFitBars(true);
+        
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f);
+        xAxis.setTextColor(Color.parseColor("#757575"));
+        
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setGridColor(Color.parseColor("#E0E0E0"));
+        leftAxis.setTextColor(Color.parseColor("#757575"));
+        
+        chart.getAxisRight().setEnabled(false);
+        chart.getLegend().setEnabled(true);
+        chart.getLegend().setTextColor(Color.parseColor("#757575"));
+        chart.animateY(1500);
+    }
+
+    public static void updateBarChart(BarChart chart, List<BarEntry> entries, String label, List<Integer> colors) {
+        if (entries.isEmpty()) {
+            chart.clear();
+            return;
+        }
+        
+        BarDataSet dataSet = new BarDataSet(entries, label);
+        dataSet.setColors(colors);
+        dataSet.setValueTextSize(10f);
+        dataSet.setValueTextColor(Color.parseColor(COLOR_PRIMARY));
+        
+        BarData barData = new BarData(dataSet);
+        barData.setBarWidth(0.6f);
+        chart.setData(barData);
+        chart.invalidate();
     }
 }

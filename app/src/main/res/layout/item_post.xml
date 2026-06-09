@@ -4,15 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp">
+    android:layout_marginBottom="16dp"
+    app:cardBackgroundColor="#CCFFFFFF"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,10 +21,13 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_circle_gradient" />
+            <ImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_circle_gradient"
+                android:src="@drawable/avatar_0"
+                android:padding="4dp"
+                android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -54,48 +58,64 @@
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:textColor="@color/text_primary"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_like"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/bg_chip"
+                android:minHeight="40dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/btn_like"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="13sp"
+                android:ellipsize="end"
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/btn_comment"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_chip"
+                android:minHeight="40dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/btn_comment"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="13sp"
+                android:ellipsize="end"
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/btn_report"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_chip"
+                android:minHeight="40dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/btn_report"
                 android:textColor="@color/text_primary"
-                android:textSize="14sp" />
+                android:textSize="13sp"
+                android:ellipsize="end"
+                android:singleLine="true" />
         </LinearLayout>
 
         <TextView

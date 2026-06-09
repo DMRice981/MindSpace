@@ -16,7 +16,7 @@ import com.mindspace.app.data.model.User;
 
 @Database(
     entities = {MoodRecord.class, Note.class, User.class, CommunityPost.class, Comment.class}, 
-    version = 6, 
+    version = 9, 
     exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {
@@ -136,6 +136,48 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
+    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+                database.execSQL("ALTER TABLE community_posts ADD COLUMN tags TEXT");
+            } catch (Exception e) {
+            }
+        }
+    };
+
+    static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+                database.execSQL("ALTER TABLE users ADD COLUMN isBanned INTEGER NOT NULL DEFAULT 0");
+            } catch (Exception e) {
+            }
+        }
+    };
+
+    static final Migration MIGRATION_8_9 = new Migration(8, 9) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+                database.execSQL("CREATE TABLE IF NOT EXISTS users_new (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                    "username TEXT," +
+                    "password TEXT," +
+                    "email TEXT," +
+                    "avatar TEXT," +
+                    "isAdmin INTEGER NOT NULL DEFAULT 0," +
+                    "isBanned INTEGER NOT NULL DEFAULT 0," +
+                    "createdAt INTEGER NOT NULL)");
+                database.execSQL("INSERT INTO users_new (id, username, password, email, avatar, isAdmin, isBanned, createdAt) " +
+                    "SELECT id, username, password, email, avatar, isAdmin, COALESCE(isBanned, 0), createdAt FROM users");
+                database.execSQL("DROP TABLE users");
+                database.execSQL("ALTER TABLE users_new RENAME TO users");
+            } catch (Exception e) {
+            }
+        }
+    };
+
     public abstract MoodDao moodDao();
     public abstract NoteDao noteDao();
     public abstract UserDao userDao();
@@ -150,7 +192,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             context.getApplicationContext(),
                             AppDatabase.class, 
                             DATABASE_NAME)
-                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9)
                             .fallbackToDestructiveMigration()
                             .build();
                 }

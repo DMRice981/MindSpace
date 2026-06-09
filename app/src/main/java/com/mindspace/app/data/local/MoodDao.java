@@ -49,4 +49,7 @@ public interface MoodDao {
 
     @Query("DELETE FROM mood_records")
     void deleteAllMoods();
+
+    @Query("SELECT * FROM mood_records ORDER BY created_at DESC")
+    List<MoodRecord> getAllMoodRecordsSync();
 }
