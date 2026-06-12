@@ -13,6 +13,7 @@ public class SessionManager {
     private static final String KEY_IS_ADMIN = "isAdmin";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_AVATAR = "avatar";
+    private static final String KEY_SUPABASE_USER_ID = "supabaseUserId";
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
@@ -65,6 +66,15 @@ public class SessionManager {
 
     public void setAvatar(String avatar) {
         editor.putString(KEY_AVATAR, avatar);
+        editor.apply();
+    }
+
+    public long getSupabaseUserId() {
+        return prefs.getLong(KEY_SUPABASE_USER_ID, -1L);
+    }
+
+    public void setSupabaseUserId(long userId) {
+        editor.putLong(KEY_SUPABASE_USER_ID, userId);
         editor.apply();
     }
 }

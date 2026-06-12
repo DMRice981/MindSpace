@@ -48,6 +48,15 @@ public class UserRepository {
         });
     }
 
+    public void findById(int userId, FindCallback callback) {
+        executorService.execute(() -> {
+            User user = userDao.findById(userId);
+            if (callback != null) {
+                callback.onComplete(user);
+            }
+        });
+    }
+
     public void getAllUsers(UsersCallback callback) {
         executorService.execute(() -> {
             List<User> users = userDao.getAllUsers();

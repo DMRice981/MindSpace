@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.mindspace.R;
 import com.mindspace.app.data.model.User;
+import com.mindspace.app.data.repository.SupabaseRepository;
 import com.mindspace.app.data.repository.UserRepository;
 import com.mindspace.app.utils.SessionManager;
+import com.mindspace.app.utils.UiStateUtils;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,8 +25,10 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvRegister;
     private Button btnUserLogin;
     private Button btnAdminLogin;
+    private boolean isLoading;
     
     private UserRepository userRepository;
+    private SupabaseRepository supabaseRepository;
     private SessionManager sessionManager;
 
     @Override
@@ -34,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         userRepository = new UserRepository(this);
+        supabaseRepository = new SupabaseRepository();
         sessionManager = new SessionManager(this);
         
         if (sessionManager.isLoggedIn()) {
@@ -72,6 +77,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
+        if (isLoading) {
+            return;
+        }
         String username = etUsername.getText() != null ? etUsername.getText().toString().trim() : "";
         String password = etPassword.getText() != null ? etPassword.getText().toString().trim() : "";
         
@@ -80,17 +88,40 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         
+        setLoading(true);
         userRepository.login(username, password, user -> {
             runOnUiThread(() -> {
                 if (user != null) {
                     sessionManager.login(user);
-                    Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-                    navigateToMain();
+                    syncProfileAndNavigate(user);
                 } else {
+                    setLoading(false);
                     Toast.makeText(this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                 }
             });
         });
+    }
+
+    private void syncProfileAndNavigate(User user) {
+        supabaseRepository.syncProfile(user, (profile, error) -> runOnUiThread(() -> {
+            if (profile != null) {
+                sessionManager.setSupabaseUserId(profile.id);
+                Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+                navigateToMain();
+            } else {
+                setLoading(false);
+                Toast.makeText(this, UiStateUtils.getNetworkErrorMessage(error), Toast.LENGTH_SHORT).show();
+            }
+        }));
+    }
+
+    private void setLoading(boolean loading) {
+        isLoading = loading;
+        btnLogin.setEnabled(!loading);
+        btnUserLogin.setEnabled(!loading);
+        btnAdminLogin.setEnabled(!loading);
+        tvRegister.setEnabled(!loading);
+        btnLogin.setText(loading ? UiStateUtils.getLoadingText("登录") : getString(R.string.btn_login));
     }
 
     private void navigateToMain() {

@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.mindspace.R;
+import com.mindspace.app.ui.activities.FriendsActivity;
 import com.mindspace.app.ui.activities.LoginActivity;
 import com.mindspace.app.utils.DataBackupManager;
 import com.mindspace.app.utils.DataSyncManager;
@@ -47,6 +48,7 @@ public class ProfileFragment extends Fragment {
     private LinearLayout btnRestore;
     private LinearLayout btnSync;
     private LinearLayout btnReminder;
+    private LinearLayout btnFriends;
     private ImageView ivAvatar;
 
     private static final int[] AVATAR_IDS = {
@@ -85,6 +87,7 @@ public class ProfileFragment extends Fragment {
         setupBackup();
         setupSync();
         setupReminder();
+        setupFriends();
         setupLogout();
         
         return view;
@@ -103,6 +106,7 @@ public class ProfileFragment extends Fragment {
         btnRestore = view.findViewById(R.id.btnRestore);
         btnSync = view.findViewById(R.id.btnSync);
         btnReminder = view.findViewById(R.id.btnReminder);
+        btnFriends = view.findViewById(R.id.btnFriends);
         ivAvatar = view.findViewById(R.id.ivAvatar);
     }
 
@@ -322,6 +326,10 @@ public class ProfileFragment extends Fragment {
                 })
                 .setNegativeButton("取消", null)
                 .show();
+    }
+
+    private void setupFriends() {
+        btnFriends.setOnClickListener(v -> startActivity(new Intent(requireContext(), FriendsActivity.class)));
     }
 
     private void setupLogout() {

@@ -15,6 +15,8 @@ import com.mindspace.app.ui.fragments.HomeFragment;
 import com.mindspace.app.ui.fragments.NotesFragment;
 import com.mindspace.app.ui.fragments.DataFragment;
 import com.mindspace.app.ui.fragments.ProfileFragment;
+import com.mindspace.app.data.repository.SupabaseRepository;
+import com.mindspace.app.data.repository.UserRepository;
 import com.mindspace.app.utils.SessionManager;
 import com.mindspace.app.utils.ThemeManager;
 
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     
     private BottomNavigationView bottomNavigationView;
     private SessionManager sessionManager;
+    private UserRepository userRepository;
+    private SupabaseRepository supabaseRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         
         sessionManager = new SessionManager(this);
+        userRepository = new UserRepository(this);
+        supabaseRepository = new SupabaseRepository();
         
         if (!sessionManager.isLoggedIn()) {
             startActivity(new Intent(this, LoginActivity.class));
@@ -39,12 +45,28 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         
+        ensureSupabaseProfile();
         initViews();
         setupBottomNavigation();
         
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment());
         }
+    }
+
+    private void ensureSupabaseProfile() {
+        if (sessionManager.getSupabaseUserId() > 0) {
+            return;
+        }
+        userRepository.findById(sessionManager.getUserId(), user -> {
+            if (user != null) {
+                supabaseRepository.syncProfile(user, (profile, error) -> {
+                    if (profile != null) {
+                        sessionManager.setSupabaseUserId(profile.id);
+                    }
+                });
+            }
+        });
     }
 
     private void initViews() {

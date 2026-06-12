@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.mindspace.R;
 import com.mindspace.app.data.model.User;
+import com.mindspace.app.data.repository.SupabaseRepository;
 import com.mindspace.app.data.repository.UserRepository;
 import com.mindspace.app.utils.SessionManager;
 
@@ -23,8 +24,10 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText etRegConfirmPassword;
     private Button btnRegister;
     private TextView tvBackToLogin;
+    private boolean isLoading;
     
     private UserRepository userRepository;
+    private SupabaseRepository supabaseRepository;
     private SessionManager sessionManager;
 
     @Override
@@ -33,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         userRepository = new UserRepository(this);
+        supabaseRepository = new SupabaseRepository();
         sessionManager = new SessionManager(this);
         
         initViews();
@@ -54,6 +58,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register() {
+        if (isLoading) {
+            return;
+        }
         String username = etRegUsername.getText() != null ? etRegUsername.getText().toString().trim() : "";
         String email = etRegEmail.getText() != null ? etRegEmail.getText().toString().trim() : "";
         String password = etRegPassword.getText() != null ? etRegPassword.getText().toString().trim() : "";
@@ -79,24 +86,45 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
         
+        setLoading(true);
         userRepository.findByUsername(username, user -> {
             runOnUiThread(() -> {
                 if (user != null) {
+                    setLoading(false);
                     Toast.makeText(this, "用户名已存在", Toast.LENGTH_SHORT).show();
                 } else {
                     User newUser = new User(username, password, email, false);
                     userRepository.insert(newUser, insertedUser -> {
                         runOnUiThread(() -> {
                             sessionManager.login(insertedUser);
-                            Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
+                            syncProfileAndNavigate(insertedUser);
                         });
                     });
                 }
             });
         });
+    }
+
+    private void setLoading(boolean loading) {
+        isLoading = loading;
+        btnRegister.setEnabled(!loading);
+        tvBackToLogin.setEnabled(!loading);
+        btnRegister.setText(loading ? UiStateUtils.getLoadingText("注册") : getString(R.string.btn_register));
+    }
+
+    private void syncProfileAndNavigate(User user) {
+        supabaseRepository.syncProfile(user, (profile, error) -> runOnUiThread(() -> {
+            if (profile != null) {
+                sessionManager.setSupabaseUserId(profile.id);
+                Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            } else {
+                setLoading(false);
+                Toast.makeText(this, UiStateUtils.getNetworkErrorMessage(error), Toast.LENGTH_SHORT).show();
+            }
+        }));
     }
 }

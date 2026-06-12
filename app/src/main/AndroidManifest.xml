@@ -36,6 +36,14 @@
             android:name="com.mindspace.app.ui.activities.MainActivity"
             android:exported="false" />
         <activity
+            android:name="com.mindspace.app.ui.activities.FriendsActivity"
+            android:exported="false"
+            android:label="好友管理" />
+        <activity
+            android:name="com.mindspace.app.ui.activities.ChatActivity"
+            android:exported="false"
+            android:label="聊天" />
+        <activity
             android:name="com.mindspace.app.ui.activities.NoteActivity"
             android:exported="false"
             android:label="@string/title_notes" />
