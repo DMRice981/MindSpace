@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.mindspace.R;
 import com.mindspace.app.data.repository.SupabaseRepository;
@@ -81,6 +82,7 @@ public class ChatActivity extends AppCompatActivity {
             Toast.makeText(this, "聊天用户信息无效", Toast.LENGTH_SHORT).show();
             return;
         }
+        supabaseRepository.markMessagesRead(userId, friendId, null);
         supabaseRepository.getChatMessages(userId, friendId, (messages, error) -> runOnUiThread(() -> {
             adapter.setMessages(messages);
             tvEmptyMessages.setText(error == null ? "暂无消息，打个招呼吧" : UiStateUtils.getNetworkErrorMessage(error));

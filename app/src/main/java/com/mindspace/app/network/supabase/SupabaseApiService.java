@@ -85,6 +85,21 @@ public interface SupabaseApiService {
             @Query("order") String order
     );
 
+    @GET("rest/v1/chat_messages")
+    Call<List<SupabaseDtos.ChatMessage>> getUserChatMessages(
+            @Query("or") String orFilter,
+            @Query("select") String select,
+            @Query("order") String order
+    );
+
+    @PATCH("rest/v1/chat_messages")
+    Call<Void> markMessagesRead(
+            @Query("sender_id") String senderFilter,
+            @Query("receiver_id") String receiverFilter,
+            @Query("is_read") String readFilter,
+            @Body SupabaseDtos.ChatMessageReadRequest request
+    );
+
     @Headers({"Prefer: return=representation"})
     @POST("rest/v1/chat_messages")
     Call<List<SupabaseDtos.ChatMessage>> sendMessage(@Body SupabaseDtos.ChatMessageInsertRequest request);

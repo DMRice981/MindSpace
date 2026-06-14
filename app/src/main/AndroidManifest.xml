@@ -40,6 +40,10 @@
             android:exported="false"
             android:label="好友管理" />
         <activity
+            android:name="com.mindspace.app.ui.activities.MessagesActivity"
+            android:exported="false"
+            android:label="消息中心" />
+        <activity
             android:name="com.mindspace.app.ui.activities.ChatActivity"
             android:exported="false"
             android:label="聊天" />

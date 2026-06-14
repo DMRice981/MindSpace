@@ -7,7 +7,9 @@ import com.mindspace.app.network.supabase.SupabaseDtos;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -171,6 +173,73 @@ public class SupabaseRepository {
         });
     }
 
+    public void getConversations(long userId, ConversationsCallback callback) {
+        executorService.execute(() -> {
+            try {
+                List<SupabaseDtos.Friendship> friends = new ArrayList<>();
+                Response<List<SupabaseDtos.Friendship>> friendsResponse = apiService.getFriends("eq." + userId, "*", "created_at.desc").execute();
+                if (friendsResponse.isSuccessful() && friendsResponse.body() != null) {
+                    friends.addAll(friendsResponse.body());
+                }
+
+                String filter = "sender_id.eq." + userId + ",receiver_id.eq." + userId;
+                Response<List<SupabaseDtos.ChatMessage>> messagesResponse = apiService.getUserChatMessages(filter, "*", "created_at.desc").execute();
+                List<SupabaseDtos.ChatMessage> messages = messagesResponse.isSuccessful() && messagesResponse.body() != null ? messagesResponse.body() : new ArrayList<>();
+                Map<Long, SupabaseDtos.ChatConversation> conversationMap = new HashMap<>();
+
+                for (SupabaseDtos.Friendship friend : friends) {
+                    SupabaseDtos.ChatConversation conversation = new SupabaseDtos.ChatConversation();
+                    conversation.friendId = friend.friendId;
+                    conversation.friendUsername = friend.friendUsername;
+                    conversation.lastMessage = null;
+                    conversation.lastMessageTime = friend.createdAt;
+                    conversation.unreadCount = 0;
+                    conversationMap.put(friend.friendId, conversation);
+                }
+
+                for (SupabaseDtos.ChatMessage message : messages) {
+                    long friendId = message.senderId == userId ? message.receiverId : message.senderId;
+                    SupabaseDtos.ChatConversation conversation = conversationMap.get(friendId);
+                    if (conversation == null) {
+                        SupabaseDtos.Profile profile = findProfileByIdSync(friendId);
+                        conversation = new SupabaseDtos.ChatConversation();
+                        conversation.friendId = friendId;
+                        conversation.friendUsername = profile == null ? "用户 " + friendId : profile.username;
+                        conversation.unreadCount = 0;
+                        conversationMap.put(friendId, conversation);
+                    }
+                    if (conversation.lastMessage == null) {
+                        conversation.lastMessage = message.content;
+                        conversation.lastMessageTime = message.createdAt;
+                    }
+                    if (message.receiverId == userId && !message.isRead) {
+                        conversation.unreadCount++;
+                    }
+                }
+
+                List<SupabaseDtos.ChatConversation> conversations = new ArrayList<>(conversationMap.values());
+                if (callback != null) {
+                    callback.onComplete(conversations, null);
+                }
+            } catch (Exception e) {
+                if (callback != null) {
+                    callback.onComplete(new ArrayList<>(), e.getMessage());
+                }
+            }
+        });
+    }
+
+    public void markMessagesRead(long currentUserId, long friendId, SimpleCallback callback) {
+        executorService.execute(() -> {
+            try {
+                Response<Void> response = apiService.markMessagesRead("eq." + friendId, "eq." + currentUserId, "eq.false", new SupabaseDtos.ChatMessageReadRequest(true)).execute();
+                notifySimple(callback, response.isSuccessful(), response.isSuccessful() ? "已读" : "标记已读失败");
+            } catch (Exception e) {
+                notifySimple(callback, false, e.getMessage());
+            }
+        });
+    }
+
     public void getChatMessages(long userId, long friendId, MessagesCallback callback) {
         executorService.execute(() -> {
             try {
@@ -248,6 +317,10 @@ public class SupabaseRepository {
 
     public interface MessagesCallback {
         void onComplete(List<SupabaseDtos.ChatMessage> messages, String error);
+    }
+
+    public interface ConversationsCallback {
+        void onComplete(List<SupabaseDtos.ChatConversation> conversations, String error);
     }
 
     public interface SimpleCallback {

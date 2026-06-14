@@ -124,4 +124,21 @@ public class SupabaseDtos {
             this.content = content;
         }
     }
+
+    public static class ChatMessageReadRequest {
+        @SerializedName("is_read")
+        public boolean isRead;
+
+        public ChatMessageReadRequest(boolean isRead) {
+            this.isRead = isRead;
+        }
+    }
+
+    public static class ChatConversation {
+        public long friendId;
+        public String friendUsername;
+        public String lastMessage;
+        public String lastMessageTime;
+        public int unreadCount;
+    }
 }

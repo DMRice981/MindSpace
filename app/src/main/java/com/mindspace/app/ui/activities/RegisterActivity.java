@@ -15,6 +15,7 @@ import com.mindspace.app.data.model.User;
 import com.mindspace.app.data.repository.SupabaseRepository;
 import com.mindspace.app.data.repository.UserRepository;
 import com.mindspace.app.utils.SessionManager;
+import com.mindspace.app.utils.UiStateUtils;
 
 public class RegisterActivity extends AppCompatActivity {
 

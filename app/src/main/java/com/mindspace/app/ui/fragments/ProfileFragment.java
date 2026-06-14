@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mindspace.R;
 import com.mindspace.app.ui.activities.FriendsActivity;
 import com.mindspace.app.ui.activities.LoginActivity;
+import com.mindspace.app.ui.activities.MessagesActivity;
 import com.mindspace.app.utils.DataBackupManager;
 import com.mindspace.app.utils.DataSyncManager;
 import com.mindspace.app.utils.ReminderManager;
@@ -48,6 +49,7 @@ public class ProfileFragment extends Fragment {
     private LinearLayout btnRestore;
     private LinearLayout btnSync;
     private LinearLayout btnReminder;
+    private LinearLayout btnMessages;
     private LinearLayout btnFriends;
     private ImageView ivAvatar;
 
@@ -87,6 +89,7 @@ public class ProfileFragment extends Fragment {
         setupBackup();
         setupSync();
         setupReminder();
+        setupMessages();
         setupFriends();
         setupLogout();
         
@@ -106,6 +109,7 @@ public class ProfileFragment extends Fragment {
         btnRestore = view.findViewById(R.id.btnRestore);
         btnSync = view.findViewById(R.id.btnSync);
         btnReminder = view.findViewById(R.id.btnReminder);
+        btnMessages = view.findViewById(R.id.btnMessages);
         btnFriends = view.findViewById(R.id.btnFriends);
         ivAvatar = view.findViewById(R.id.ivAvatar);
     }
@@ -326,6 +330,10 @@ public class ProfileFragment extends Fragment {
                 })
                 .setNegativeButton("取消", null)
                 .show();
+    }
+
+    private void setupMessages() {
+        btnMessages.setOnClickListener(v -> startActivity(new Intent(requireContext(), MessagesActivity.class)));
     }
 
     private void setupFriends() {
